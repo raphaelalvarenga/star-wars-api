@@ -7,8 +7,6 @@ function getPeople() {
         .then(res => res.json())
         .then(res => {
 
-            console.log(res);
-
             // Pegar minha <ul> no HTML pelo ID
             const ul = document.getElementById("list-people");
 
@@ -35,8 +33,6 @@ function getPlanets() {
         .then(res => res.json())
         .then(res => {
 
-            console.log(res);
-
             // Pegar minha <ul> no HTML pelo ID
             const ul = document.getElementById("list-planets");
 
@@ -56,4 +52,30 @@ function getPlanets() {
                 ul.appendChild(li);
             }
         })
+}
+
+function getFilms() {
+    makeRequest("films")
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            // Pegar minha <ul> no HTML pelo ID
+            const ul = document.getElementById("list-films");
+
+            for (let x = 0; x < res.results.length; x++) {
+                // Criar uma <li>
+                const li = document.createElement("li");
+
+                // Criar <a>
+                const a = document.createElement("a");
+
+                // Colocar HREF no <a>
+                a.setAttribute("href", "./film.html");
+                a.innerHTML = res.results[x].title;
+
+                li.appendChild(a);
+
+                ul.appendChild(li);
+            }
+        });
 }
