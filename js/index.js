@@ -3,6 +3,7 @@ function makeRequest(urlParam) {
 }
 
 function createContent(res, ulID, aHref) {
+
     // Pegar minha <ul> no HTML pelo ID
     const ul = document.getElementById(ulID);
 
@@ -13,8 +14,10 @@ function createContent(res, ulID, aHref) {
         // Criar <a>
         const a = document.createElement("a");
 
+        const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
+
         // Colocar HREF no <a>
-        a.setAttribute("href", aHref);
+        a.setAttribute("href", formattedHref);
 
         ulID === "list-films" ? a.innerHTML = res.results[x].title : a.innerHTML = res.results[x].name;
 
@@ -59,3 +62,10 @@ function getStarships() {
         .then(res => res.json())
         .then(res => createContent(res, "list-starships", "./starship.html"));
 }
+
+function getPerson() {}
+function getPlanet() {}
+function getFilm() {}
+function getSpecies() {}
+function getVehicle() {}
+function getStarship() {}
