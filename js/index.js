@@ -79,3 +79,81 @@ function getFilms() {
             }
         });
 }
+
+function getSpecies() {
+    makeRequest("species")
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            // Pegar minha <ul> no HTML pelo ID
+            const ul = document.getElementById("list-species");
+
+            for (let x = 0; x < res.results.length; x++) {
+                // Criar uma <li>
+                const li = document.createElement("li");
+
+                // Criar <a>
+                const a = document.createElement("a");
+
+                // Colocar HREF no <a>
+                a.setAttribute("href", "./specie.html");
+                a.innerHTML = res.results[x].name;
+
+                li.appendChild(a);
+
+                ul.appendChild(li);
+            }
+        });
+}
+
+function getVehicles() {
+    makeRequest("vehicles")
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            // Pegar minha <ul> no HTML pelo ID
+            const ul = document.getElementById("list-vehicles");
+
+            for (let x = 0; x < res.results.length; x++) {
+                // Criar uma <li>
+                const li = document.createElement("li");
+
+                // Criar <a>
+                const a = document.createElement("a");
+
+                // Colocar HREF no <a>
+                a.setAttribute("href", "./vehicle.html");
+                a.innerHTML = res.results[x].name;
+
+                li.appendChild(a);
+
+                ul.appendChild(li);
+            }
+        });
+}
+
+function getStarships() {
+    makeRequest("starships")
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            // Pegar minha <ul> no HTML pelo ID
+            const ul = document.getElementById("list-starships");
+
+            for (let x = 0; x < res.results.length; x++) {
+                // Criar uma <li>
+                const li = document.createElement("li");
+
+                // Criar <a>
+                const a = document.createElement("a");
+
+                // Colocar HREF no <a>
+                a.setAttribute("href", "./starship.html");
+                a.innerHTML = res.results[x].name;
+
+                li.appendChild(a);
+
+                ul.appendChild(li);
+            }
+        });
+}
