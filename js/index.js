@@ -1,4 +1,6 @@
-// Faz a requisição quando chamada
+/* Faz a requisição em todos 'makeRequest', retornando o 
+o conteudo declarado entre () - makeRequest("conteudo") 
+e aplicando em (urlParam)  pra pedir retorno na fetch .. dentro do ${urlParam} */
 function makeRequest(urlParam) {
     return fetch(`https://swapi.dev/api/${urlParam}`)
 }
