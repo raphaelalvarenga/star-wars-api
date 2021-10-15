@@ -5,7 +5,7 @@ lista de ja utilizavel no projeto, na sessao PEOPLE.
 Nesse index.html temos também links fixos para cada PAGINA do projeto.
 nesse caso aparecem no menu: planetas, especies, e outras classes, menos PESSOAS pois HOME é a classe pessoas, o nome 'PESSOAS' APARECE ENORME no home.
 
-abaixo da excrita pessoas está uma <ul> que foi criada apenas com js
+abaixo da escrita pessoas está uma <ul> que foi criada apenas com js
 e cada elemento criado é um link tambem formatado no JS que são carregados 
 via funçao on-load dentro do body de cada página
 
@@ -29,6 +29,8 @@ function makeRequest(urlParam) {
     return fetch(`https://swapi.dev/api/${urlParam}`)
 }
 
+const plan1 = "https://swapi.dev/api/planets/1/";
+const plan8 = "https://swapi.dev/api/planets/8/";
 /*     3   createContent 
 
 Esta função cria o HTML para o escopo que está chamando ela (people, planets, etc)
@@ -67,7 +69,7 @@ function createContent(res, ulID, aHref) {
         intervalo entre elementos de um objeto .. entao nosso exemplo ficaria como
            [https:, www.youtube.com, watch]  <- gerando um array/objeto com 3 elementos.
            esse é o split.
-           e na sequencia dizemos desse split, qual é o indice que queremos o valor...  no nosso projeto abaixo queremos SEMPRE o valor que estiver na posição [5], pois este será o numero pra concluir a criação do link!
+           e na sequencia dizemos desse split, qual é o indice que queremos o valor...  no nosso projeto abaixo queremos SEMPRE o valor que estiver na posição [5], pois este será o numero pra concluir a criação do link
 
         */
         const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
@@ -86,10 +88,28 @@ function createContent(res, ulID, aHref) {
     }
 }
 
+function createContent2(res, ulID) {
+     makeRequest("people")
+    .then(res => createContent(res, "list-people", "./person.html"))
+    // Pega a <ul> no HTML pelo ID
+    const ul = document.getElementById(ulID);
+
+    
+        // Cria uma <li>
+        const li = document.createElement("li");
+
+        
+
+        // Acrescenta o <li> (que já possui o <a>) dentro do <ul>
+        ul.appendChild(li);
+    }
+}
+
+
 /*   1    Busca pessoas
         essa funçao começa dando um valor ("people")
         pra uma função chamada makeRequest  que joga o ("people")
-        dentro de uma fetch (a makeRequest é a primeira funçao ativa no alto com o 2 )
+        dentro de uma fetch (a makeRequest é a primeira funçao ativa, está lá no alto com o 2 )
         Reparamos que toda função terá uma makeRequest com um ("valor") que 
         será colocado na fetch - e os '.then' que dão retorno, serao usados 
         nas funcões 'getPeople, getPlanet'...etc
@@ -111,42 +131,111 @@ function getPeople() {
         .then(res => createContent(res, "list-people", "./person.html"))
 }
 
-// Busca planetas
+/* Busca planetas
+   é uma funçao onLoad dentro de Planets.html
+   essa pagina quando abrir carrega lista de planetas
+   e cada planeta é um link para planeta individual com características
+   que já nao serao mais links.
+
+*/ 
 function getPlanets() {
     makeRequest("planets")
         .then(res => res.json())
         .then(res => createContent(res, "list-planets", "./planet.html"))
 }
 
-// Busca filmes
+// Busca filmes -onLoad dentro de films.html
 function getFilms() {
     makeRequest("films")
         .then(res => res.json())
         .then(res => createContent(res, "list-films", "./film.html"));
 }
 
-// Busca espécies
+// Busca espécies -onLoad dentro de species.html
 function getSpecies() {
     makeRequest("species")
         .then(res => res.json())
         .then(res => createContent(res, "list-species", "./specie.html"));
 }
 
-// Busca veículos
+// Busca veículos -onLoad dentro de vehicles.html
 function getVehicles() {
     makeRequest("vehicles")
         .then(res => res.json())
         .then(res => createContent(res, "list-vehicles", "./vehicle.html"));
 }
 
-// Busca naves
+// Busca naves -onLoad dentro de starships.html
 function getStarships() {
     makeRequest("starships")
         .then(res => res.json())
         .then(res => createContent(res, "list-starships", "./starship.html"));
 }
 
-function getPerson() {}
+function getPerson() {
+    makeRequest("people/1")
+        .then(res => res.json())
+        .then(res => {
+            const ul = document.getElementById('individual')
+            const li = document.createElement('li')
+            const name = document.createElement('name')
+            name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
+            const gender = document.createElement('gender')
+            gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender} (homem) </p>`
+            const height = document.createElement('height')
+            height.innerHTML = `<p><strong>Altura:</strong> ${res.height}</p>`
+            const massa = document.createElement('massa')
+            massa.innerHTML = `<p><strong>Massa:</strong> ${res.mass}</p>`
+            const hair = document.createElement('hair')
+            hair.innerHTML = `<p><strong>Cabelo:</strong> ${res.hair_color} (loiro) </p>`
+            const skin = document.createElement('skin')
+            skin.innerHTML = `<p><strong>Cor da pele:</strong> ${res.skin_color} (branca)</p>`
+            const eye = document.createElement('eye')
+            eye.innerHTML = `<p><strong>Cor dos olhos:</strong> ${res.eye_color} (azul)</p>`
+            const ano = document.createElement('ano')
+            ano.innerHTML = `<p><strong>Ano de nascimento:</strong> ${res.birth_year} (BBY-before Battle Yavin-antes da batalha de Yavin) </p>`
+            
+
+            fetch (plan1)
+            .then (planets => {
+                planets.json()
+            .then (plans => {
+                const planeta = document.createElement('planeta')
+            planeta.innerHTML = `<p><strong>Planeta natal:</strong> ${plans.name}</p>`
+            ul.appendChild(li)
+            li.appendChild(planeta)
+            
+        })
+            })
+
+            ul.appendChild(li)
+            li.appendChild(name)
+            ul.appendChild(li)
+            li.appendChild(gender)
+            ul.appendChild(li)
+            li.appendChild(height)
+            ul.appendChild(li)
+            li.appendChild(massa)
+            ul.appendChild(li)
+            li.appendChild(hair)
+            ul.appendChild(li)
+            li.appendChild(skin)
+            ul.appendChild(li)
+            li.appendChild(eye)
+            ul.appendChild(li)
+            li.appendChild(ano)
+
+     
+
+        }) 
+    })
+    .catch(err => console.error('nao foi essa desgraça!', err ))
+            const res = document.createElement('res')
+            res.innerHTML = `<p><strong>Planeta natal:</strong> ${res.name}</p>`
+            ul.appendChild(li)
+            li.appendChild(res)
+        }
+}
 function getPlanet() {}
 function getFilm() {}
 function getSpecies() {}
