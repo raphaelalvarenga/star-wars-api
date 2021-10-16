@@ -29,8 +29,7 @@ function makeRequest(urlParam) {
     return fetch(`https://swapi.dev/api/${urlParam}`)
 }
 
-const plan1 = "https://swapi.dev/api/planets/1/";
-const plan8 = "https://swapi.dev/api/planets/8/";
+
 /*     3   createContent 
 
 Esta função cria o HTML para o escopo que está chamando ela (people, planets, etc)
@@ -195,19 +194,19 @@ function getPerson() {
             const name = document.createElement('name')
             name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
             const gender = document.createElement('gender')
-            gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender} (masculino) </p>`
+            gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender}</p>`
             const height = document.createElement('height')
             height.innerHTML = `<p><strong>Altura:</strong> ${res.height}cm</p>`
             const massa = document.createElement('massa')
             massa.innerHTML = `<p><strong>Massa:</strong> ${res.mass}kg</p>`
             const hair = document.createElement('hair')
-            hair.innerHTML = `<p><strong>Cabelo:</strong> ${res.hair_color} (loiro) </p>`
+            hair.innerHTML = `<p><strong>Cabelo:</strong> ${res.hair_color}</p>`
             const skin = document.createElement('skin')
-            skin.innerHTML = `<p><strong>Cor da pele:</strong> ${res.skin_color} (branca)</p>`
+            skin.innerHTML = `<p><strong>Cor da pele:</strong> ${res.skin_color}</p>`
             const eye = document.createElement('eye')
-            eye.innerHTML = `<p><strong>Cor dos olhos:</strong> ${res.eye_color} (azul)</p>`
+            eye.innerHTML = `<p><strong>Cor dos olhos:</strong> ${res.eye_color}</p>`
             const ano = document.createElement('ano')
-            ano.innerHTML = `<p><strong>Ano de nascimento:</strong> ${res.birth_year} (BBY-before Battle Yavin-antes da batalha de Yavin) </p>`
+            ano.innerHTML = `<p><strong>Ano de nascimento:</strong> ${res.birth_year}</p>`
 
             ul.appendChild(li)
             li.appendChild(name)
@@ -224,7 +223,33 @@ function getPerson() {
             ul.appendChild(li)
             li.appendChild(eye)
             ul.appendChild(li)
-            li.appendChild(ano)  
+            li.appendChild(ano) 
+
+            
+           let planet = res.homeworld.split("/")[5]
+            makeRequest(`planets/${planet}/`)
+            .then(plt => plt.json())
+             .then(plt => {
+                
+                 
+                const ul = document.getElementById('individual')
+                const li = document.createElement('li')
+                ul.appendChild(li)
+                li.innerHTML = `<p><strong>Planeta de origem:</strong> ${plt.name}</p>`
+           
+            
+            })
+              
+            /*
+            
+               */
+            })
+        }
+            
+            /*
+            homeworld: "https://swapi.dev/api/planets/8/"
+
+
             fetch (plan1)
             .then (planets => {
                 planets.json()
@@ -233,11 +258,12 @@ function getPerson() {
             planeta.innerHTML = `<p><strong>Planeta natal:</strong> ${plans.name}</p>`
             ul.appendChild(li)
             li.appendChild(planeta)
+             
         })
             })
         }).catch(err => console.error('error!', err ))
     }
-
+*/
     
    /* 
     */
