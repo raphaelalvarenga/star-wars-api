@@ -87,24 +87,13 @@ function createContent(res, ulID, aHref) {
         ul.appendChild(li);
     }
 }
-/* 
-function createContent2(res, ulID) {
-     makeRequest("people")
-    .then(res => createContent(res, "list-people", "./person.html"))
-    // Pega a <ul> no HTML pelo ID
-    const ul = document.getElementById(ulID);
 
-    
-        // Cria uma <li>
-        const li = document.createElement("li");
 
-        
 
-        // Acrescenta o <li> (que já possui o <a>) dentro do <ul>
-        ul.appendChild(li);
-    }
-}
-*/
+
+
+
+
 
 /*   1    Busca pessoas
         essa funçao começa dando um valor ("people")
@@ -172,8 +161,33 @@ function getStarships() {
         .then(res => createContent(res, "list-starships", "./starship.html"));
 }
 
+
+
+/* getPerson()
+--nesse projeto tivemos um problema nesta estapa, pois a makeRequest()
+até neste momento trabalhou com valores unicos, tipo "especies" ou "people", e nao possuiam paginas subsequentes como ex.: "especies/1" "especies/2"..
+porém neste nivel de construção do site, o conteúdo coletado na API passa a ser subdividido exatamente como descrito acima por ultimo. 
+Essa problematica foi superada com um by-pass  simples...  uma variável 'id' que insere parte da declaração feita na makeRequest()
+
+A funçao getPerson vai primeiramente criar a const id pra buscar uma informaçao de quem aciona ela, que nesse caso sera um valor url tipo exemplo: "https://swapi.dev/api/people/1"
+e  ..  vai pegar isso lá em 'window.location.HREF' - é lá que tem essa informação,(e muito mais informações extras),  VAI APLICAR no href a regra SPLIT!
+com o critério ("id="), ou seja , da informação que recolher no href, split vai remover "id=", e com isso gerar um array, desse array vamos coletar em nossa variável 'id' a informação contida no indice [1].
+
+"-E como encontramos o que foi 'splitado' pra poder escolher o índice? "
+(basta fazermos um console.log(window.location) e analizar o console, lá dentro 
+estarão todos as interações possíveis com 'window')
+
+escolhido o indice 1 temos o id pra função continuar com a makeRequest(),
+e no valor declaramos (`exemplo/${id}`)
+simplesmente infalível ... 
+.then  cria 'res' como json()
+'res' passa a ser nossa variável contenente das informações
+à partir disso é questão apenas de passar dados via DOM para o HTML.
+*/
 function getPerson() {
-    makeRequest("people/1")
+    const id = window.location.href.split("id=")[1]
+        
+    makeRequest(`people/${id}`)
         .then(res => res.json())
         .then(res => {
             const ul = document.getElementById('individual')
