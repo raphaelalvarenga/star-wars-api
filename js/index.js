@@ -180,18 +180,12 @@ function getPerson() {
             const li = document.createElement('li')
             const name = document.createElement('name')
             name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
-            ul.appendChild(li)
-            li.appendChild(name)    
-        })
-    }
-            /* 
-            
             const gender = document.createElement('gender')
-            gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender} (homem) </p>`
+            gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender} (masculino) </p>`
             const height = document.createElement('height')
-            height.innerHTML = `<p><strong>Altura:</strong> ${res.height}</p>`
+            height.innerHTML = `<p><strong>Altura:</strong> ${res.height}cm</p>`
             const massa = document.createElement('massa')
-            massa.innerHTML = `<p><strong>Massa:</strong> ${res.mass}</p>`
+            massa.innerHTML = `<p><strong>Massa:</strong> ${res.mass}kg</p>`
             const hair = document.createElement('hair')
             hair.innerHTML = `<p><strong>Cabelo:</strong> ${res.hair_color} (loiro) </p>`
             const skin = document.createElement('skin')
@@ -200,21 +194,9 @@ function getPerson() {
             eye.innerHTML = `<p><strong>Cor dos olhos:</strong> ${res.eye_color} (azul)</p>`
             const ano = document.createElement('ano')
             ano.innerHTML = `<p><strong>Ano de nascimento:</strong> ${res.birth_year} (BBY-before Battle Yavin-antes da batalha de Yavin) </p>`
-            
 
-            fetch (plan1)
-            .then (planets => {
-                planets.json()
-            .then (plans => {
-                const planeta = document.createElement('planeta')
-            planeta.innerHTML = `<p><strong>Planeta natal:</strong> ${plans.name}</p>`
             ul.appendChild(li)
-            li.appendChild(planeta)
-            
-        })
-            })
-
-            
+            li.appendChild(name)
             ul.appendChild(li)
             li.appendChild(gender)
             ul.appendChild(li)
@@ -228,19 +210,23 @@ function getPerson() {
             ul.appendChild(li)
             li.appendChild(eye)
             ul.appendChild(li)
-            li.appendChild(ano)
-
-     
-
-        }) 
-    })
-    .catch(err => console.error('nao foi essa desgraça!', err ))
-            const res = document.createElement('res')
-            res.innerHTML = `<p><strong>Planeta natal:</strong> ${res.name}</p>`
+            li.appendChild(ano)  
+            fetch (plan1)
+            .then (planets => {
+                planets.json()
+            .then (plans => {
+                const planeta = document.createElement('planeta')
+            planeta.innerHTML = `<p><strong>Planeta natal:</strong> ${plans.name}</p>`
             ul.appendChild(li)
-            li.appendChild(res)
-        }
-}*/
+            li.appendChild(planeta)
+        })
+            })
+        }).catch(err => console.error('error!', err ))
+    }
+
+    
+   /* 
+    */
 function getPlanet() {}
 function getFilm() {}
 function getSpecies() {}
