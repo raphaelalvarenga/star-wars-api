@@ -224,26 +224,22 @@ function getPerson() {
             li.appendChild(eye)
             ul.appendChild(li)
             li.appendChild(ano) 
-
             
+                        
            let planet = res.homeworld.split("/")[5]
             makeRequest(`planets/${planet}/`)
             .then(plt => plt.json())
              .then(plt => {
                 
-                 
                 const ul = document.getElementById('individual')
                 const li = document.createElement('li')
                 ul.appendChild(li)
-                li.innerHTML = `<p><strong>Planeta de origem:</strong> ${plt.name}</p>`
-           
-            
-            })
-              
-            /*
-            
-               */
-            })
+                li.innerHTML = `<p><strong>Planeta de origem:</strong> <a href="">${plt.name}</a></p>`
+                console.log(res)
+
+ 
+            }) 
+        })
         }
             
             /*
@@ -267,7 +263,72 @@ function getPerson() {
     
    /* 
     */
-function getPlanet() {}
+function getPlanet() {
+   
+    const id = window.location.href.split("id=")[1]
+        
+    makeRequest(`planet/${id}/`)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+           /*  
+            const ul = document.getElementById('individual')
+            const li = document.createElement('li')
+            const name = document.createElement('name')
+            name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
+            const gender = document.createElement('gender')
+            gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender}</p>`
+            const height = document.createElement('height')
+            height.innerHTML = `<p><strong>Altura:</strong> ${res.height}cm</p>`
+            const massa = document.createElement('massa')
+            massa.innerHTML = `<p><strong>Massa:</strong> ${res.mass}kg</p>`
+            const hair = document.createElement('hair')
+            hair.innerHTML = `<p><strong>Cabelo:</strong> ${res.hair_color}</p>`
+            const skin = document.createElement('skin')
+            skin.innerHTML = `<p><strong>Cor da pele:</strong> ${res.skin_color}</p>`
+            const eye = document.createElement('eye')
+            eye.innerHTML = `<p><strong>Cor dos olhos:</strong> ${res.eye_color}</p>`
+            const ano = document.createElement('ano')
+            ano.innerHTML = `<p><strong>Ano de nascimento:</strong> ${res.birth_year}</p>`
+
+            ul.appendChild(li)
+            li.appendChild(name)
+            ul.appendChild(li)
+            li.appendChild(gender)
+            ul.appendChild(li)
+            li.appendChild(height)
+            ul.appendChild(li)
+            li.appendChild(massa)
+            ul.appendChild(li)
+            li.appendChild(hair)
+            ul.appendChild(li)
+            li.appendChild(skin)
+            ul.appendChild(li)
+            li.appendChild(eye)
+            ul.appendChild(li)
+            li.appendChild(ano) 
+            
+                        
+           let planet = res.homeworld.split("/")[5]
+            makeRequest(`planets/${planet}/`)
+            .then(plt => plt.json())
+             .then(plt => {
+                
+                const ul = document.getElementById('individual')
+                const li = document.createElement('li')
+                ul.appendChild(li)
+                li.innerHTML = `<p><strong>Planeta de origem:</strong> <a href="">${plt.name}</a></p>`
+                console.log(res)
+
+ 
+            }) */
+        })
+        }
+
+
+
+
+
 function getFilm() {}
 function getSpecies() {}
 function getVehicle() {}
