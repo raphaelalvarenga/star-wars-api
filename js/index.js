@@ -87,7 +87,7 @@ function createContent(res, ulID, aHref) {
         ul.appendChild(li);
     }
 }
-
+/* 
 function createContent2(res, ulID) {
      makeRequest("people")
     .then(res => createContent(res, "list-people", "./person.html"))
@@ -104,7 +104,7 @@ function createContent2(res, ulID) {
         ul.appendChild(li);
     }
 }
-
+*/
 
 /*   1    Busca pessoas
         essa funçao começa dando um valor ("people")
@@ -180,6 +180,12 @@ function getPerson() {
             const li = document.createElement('li')
             const name = document.createElement('name')
             name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
+            ul.appendChild(li)
+            li.appendChild(name)    
+        })
+    }
+            /* 
+            
             const gender = document.createElement('gender')
             gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender} (homem) </p>`
             const height = document.createElement('height')
@@ -208,8 +214,7 @@ function getPerson() {
         })
             })
 
-            ul.appendChild(li)
-            li.appendChild(name)
+            
             ul.appendChild(li)
             li.appendChild(gender)
             ul.appendChild(li)
@@ -235,7 +240,7 @@ function getPerson() {
             ul.appendChild(li)
             li.appendChild(res)
         }
-}
+}*/
 function getPlanet() {}
 function getFilm() {}
 function getSpecies() {}
