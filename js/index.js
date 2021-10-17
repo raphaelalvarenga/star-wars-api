@@ -235,39 +235,32 @@ function getPerson() {
                 const li = document.createElement('li')
                 ul.appendChild(li)
                 li.innerHTML = `<p><strong>Planeta de origem:</strong><a href="">${plt.name}</a></p>`
-            }) 
-        })
-        }
+                }) 
+                })
+                }
             
-            /*
-            homeworld: "https://swapi.dev/api/planets/8/"
+ 
+/*  getPlanet() 
 
+essa função faz cria uma 'const id' para coletar especificamente um dado via
+window.location.href    essa informação passou pelo famoso 'split' ..
+essa funcção tem se mostrado muito útil. o elemento na posição 1 é o que queremos
+https://swapi.dev/api/planet?id=1  - tirando o id=   temos um array com duas posições:   [ https://swapi.dev/api/planet? ,  1  ]  
+entao dois elementos  -  o 0  que corresponde a httpblablabla... 
+e o elemento 1   .  que nesse caso tem valor 1
+isso monta a const id e vai pra makeRequest().
+daih por diante segue o processo como ja vimos acima em outras funções.
+Estes passos serão repetidos nas proximas funções portando serão comentados apenas variações significativas do código.
 
-            fetch (plan1)
-            .then (planets => {
-                planets.json()
-            .then (plans => {
-                const planeta = document.createElement('planeta')
-            planeta.innerHTML = `<p><strong>Planeta natal:</strong> ${plans.name}</p>`
-            ul.appendChild(li)
-            li.appendChild(planeta)
-             
-        })
-            })
-        }).catch(err => console.error('error!', err ))
-    }
-*/
+*/ 
+            function getPlanet() {
     
-   /* 
-    */
-function getPlanet() {
-   
-    const id = window.location.href.split("id=")[1]
-     
-    makeRequest(`planets/${id}/`)
-     
-        .then(res => res.json())
-        .then(res => {
+            const id = window.location.href.split("id=")[1]
+            
+            makeRequest(`planets/${id}/`)
+        
+            .then(res => res.json())
+            .then(res => {
             console.log(res)
             const ul = document.getElementById('individual')
             const li = document.createElement('li')
@@ -315,7 +308,19 @@ function getPlanet() {
             li.appendChild(sw)
             ul.appendChild(li)
             li.appendChild(terrain)
-           /*  
+        })
+        }
+
+function getFilm() {}
+function getSpecies() {}
+function getVehicle() {}
+function getStarship() {}    
+
+
+
+
+
+/*  
           
 name: "Tatooine"
 diameter: "10465"
@@ -376,17 +381,10 @@ url: "https://swapi.dev/api/planets/1/"
                 ul.appendChild(li)
                 li.innerHTML = `<p><strong>Planeta de origem:</strong> <a href="">${plt.name}</a></p>`
                 console.log(res)
-
- 
-            }) */
-        })
-        }
+            }) 
+*/
 
 
 
 
 
-function getFilm() {}
-function getSpecies() {}
-function getVehicle() {}
-function getStarship() {}
