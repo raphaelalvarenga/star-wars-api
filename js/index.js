@@ -383,37 +383,79 @@ function getSpecie() {
             a.setAttribute("href", formattedHref);
             li.appendChild(a)
             ul.appendChild(li)
-         }
-})
-       
-   }
-   
-  /* 
-for (let x = 0; x < res.results.length; x++) {
-     
-        const li = document.createElement("li");
-
-      
-        const a = document.createElement("a");
-
-        const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
-
-      
-        a.setAttribute("href", formattedHref);
-        li.appendChild(a);
-
- 
-        ul.appendChild(li);
+         } 
+        })
 }
-  */
-       
-     
+   
+function getSpeciel() {
+    const id = window.location.href.split("id=")[1]
+    makeRequest(`species/${id}/`)
+    .then(res => res.json())
+    .then(res =>{
+        const ul = document.getElementById('individual')
+        const li = document.createElement('li')
+        const name = document.createElement('li')
+        name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
+        const language = document.createElement('li')
+        language.innerHTML = `<p><strong>Língua:</strong> ${res.language} </p>`
+        const average_height = document.createElement('li')
+        average_height.innerHTML = `<p><strong>Altura média:</strong> ${res.average_height} </p>`
+        const average_lifespan = document.createElement('li')
+        average_lifespan.innerHTML = `<p><strong>Longevidade média:</strong> ${res.average_lifespan} </p>`
+        const classification = document.createElement('li')
+        classification.innerHTML = `<p><strong>Classificação:</strong> ${res.classification} </p>`
+        const designation = document.createElement('li')
+        designation.innerHTML = `<p><strong>Designação:</strong> ${res.designation} </p>`
+        const eye_colors = document.createElement('li')
+        eye_colors.innerHTML = `<p><strong>Cor dos olhos:</strong> ${res.eye_colors} </p>`
+        const films = document.createElement('li')
+        films.innerHTML = `<p><strong>**Filmes:</strong> 6 </p>`
+        const hair_colors = document.createElement('li')
+        hair_colors.innerHTML = `<p><strong>Cor dos cabelos:</strong> ${res.hair_colors} </p>`
+        const homeworld = document.createElement('li')
+        homeworld.innerHTML = `<p><strong>**Planeta de origem:</strong> Terra </p>`
+        const people = document.createElement('li')
+        people.innerHTML = `<p><strong>**Pessoas:</strong> 4 </p>`
+        const skin_colors = document.createElement('li')
+        skin_colors.innerHTML = `<p><strong>Cores de pele:</strong> ${res.skin_colors} </p>`
+
+        ul.appendChild(li)
+        li.appendChild(name)
+        ul.appendChild(li)
+        li.appendChild(language)
+        ul.appendChild(li)
+        li.appendChild(average_height)
+        ul.appendChild(li)
+        li.appendChild(average_lifespan)
+        ul.appendChild(li)
+        li.appendChild(classification)
+        ul.appendChild(li)
+        li.appendChild(designation)
+        ul.appendChild(li)
+        li.appendChild(eye_colors)
+        ul.appendChild(li)
+        li.appendChild(films)
+        ul.appendChild(li)
+        li.appendChild(hair_colors)
+        ul.appendChild(li)
+        li.appendChild(homeworld)
+        ul.appendChild(li)
+        li.appendChild(people)
+        ul.appendChild(li)
+        li.appendChild(skin_colors)
+    })
+}
 
 
+function getVehicle() {
+
+    
+}
+
+/*
 
 
-
-function getVehicle() {}
+*/
 function getStarship() {}    
 
 
