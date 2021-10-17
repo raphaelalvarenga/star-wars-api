@@ -448,11 +448,106 @@ function getSpeciel() {
 
 
 function getVehicle() {
+    makeRequest(`vehicles`)
+    .then(res => res.json())
+    .then(res => {
+          
+        for (let x = 0; x < res.results.length; x++){
+            const ul = document.getElementById('individual')
+            const li = document.createElement("li")
+            const a = document.createElement("a")
+            const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
+            a.setAttribute("href", formattedHref);
+            li.appendChild(a)
+            ul.appendChild(li)
+          } 
+         })
 
-    
 }
 
+function getVehiclel() {
+    const id = window.location.href.split("id=")[1]
+    makeRequest(`vehicles/${id}/`)
+    .then(res => res.json())
+    .then(res => {
+       
+        const ul = document.getElementById('individual')
+        const li = document.createElement('li')
+        const name = document.createElement('li')
+        name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
+        const passengers = document.createElement('li')
+        passengers.innerHTML = `<p><strong>Passageiros:</strong> ${res.passengers} </p>`
+        const crew = document.createElement('li')
+        crew.innerHTML = `<p><strong>Tripulação:</strong> ${res.crew} </p>`
+        const pilots = document.createElement('li')
+        pilots.innerHTML = `<p><strong>Pilotos:</strong> ${res.pilots} </p>`
+        const vehicle_class = document.createElement('li')
+        vehicle_class.innerHTML = `<p><strong>Classe de Veículo:</strong> ${res.vehicle_class} </p>`
+        const length = document.createElement('li')
+        length.innerHTML = `<p><strong>Comprimento:</strong> ${res.length} </p>`
+        const manufacturer = document.createElement('li')
+        manufacturer.innerHTML = `<p><strong>Fabricante:</strong> ${res.manufacturer} </p>`
+        const max_atmosphering_speed = document.createElement('li')
+        max_atmosphering_speed.innerHTML = `<p><strong>Velocidade máxima em atmosfera:</strong> ${res.max_atmosphering_speed}km/h </p>`
+        const model = document.createElement('li')
+        model.innerHTML = `<p><strong>Modelo:</strong> ${res.model} </p>`
+        const cargo_capacity = document.createElement('li')
+        cargo_capacity.innerHTML = `<p><strong>Capacidade de carga:</strong> ${res.cargo_capacity}kg </p>`
+        const consumables = document.createElement('li')
+        consumables.innerHTML = `<p><strong>Autonomia de estoque:</strong> ${res.consumables} </p>`
+        const cost_in_credits = document.createElement('li')
+        cost_in_credits.innerHTML = `<p><strong>Valor em créditos:</strong> ${res.cost_in_credits} </p>`
+        const films = document.createElement('li')
+        films.innerHTML = `<p><strong>**Filmes:</strong> 2 </p>`
+        
+        ul.appendChild(li)
+        li.appendChild(name)
+        ul.appendChild(li)
+        li.appendChild(cost_in_credits)
+        ul.appendChild(li)
+        li.appendChild(passengers)
+        ul.appendChild(li)
+        li.appendChild(crew)
+        ul.appendChild(li)
+        li.appendChild(pilots)
+        ul.appendChild(li)
+        li.appendChild(vehicle_class)
+        ul.appendChild(li)
+        li.appendChild(length)
+        ul.appendChild(li)
+        li.appendChild(manufacturer)
+        ul.appendChild(li)
+        li.appendChild(max_atmosphering_speed)
+        ul.appendChild(li)
+        li.appendChild(model)
+        ul.appendChild(li)
+        li.appendChild(cargo_capacity)
+        ul.appendChild(li)
+        li.appendChild(consumables)
+        ul.appendChild(li)
+        li.appendChild(films)
+
+    })
+}
 /*
+
+
+
+
+
+name: "Sand Crawler"
+passengers: "30"
+crew: "46"
+pilots: []
+vehicle_class: "wheeled"
+length: "36.8 "
+manufacturer: "Corellia Mining Corporation"
+max_atmosphering_speed: "30"
+model: "Digger Crawler"
+cargo_capacity: "50000"
+consumables: "2 months"
+cost_in_credits: "150000"
+films: (2)  
 
 
 */
