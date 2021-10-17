@@ -191,21 +191,21 @@ function getPerson() {
         .then(res => {
             const ul = document.getElementById('individual')
             const li = document.createElement('li')
-            const name = document.createElement('name')
+            const name = document.createElement('li')
             name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
-            const gender = document.createElement('gender')
+            const gender = document.createElement('li')
             gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender}</p>`
-            const height = document.createElement('height')
+            const height = document.createElement('li')
             height.innerHTML = `<p><strong>Altura:</strong> ${res.height}cm</p>`
-            const massa = document.createElement('massa')
+            const massa = document.createElement('li')
             massa.innerHTML = `<p><strong>Massa:</strong> ${res.mass}kg</p>`
-            const hair = document.createElement('hair')
+            const hair = document.createElement('li')
             hair.innerHTML = `<p><strong>Cabelo:</strong> ${res.hair_color}</p>`
-            const skin = document.createElement('skin')
+            const skin = document.createElement('li')
             skin.innerHTML = `<p><strong>Cor da pele:</strong> ${res.skin_color}</p>`
-            const eye = document.createElement('eye')
+            const eye = document.createElement('li')
             eye.innerHTML = `<p><strong>Cor dos olhos:</strong> ${res.eye_color}</p>`
-            const ano = document.createElement('ano')
+            const ano = document.createElement('li')
             ano.innerHTML = `<p><strong>Ano de nascimento:</strong> ${res.birth_year}</p>`
 
             ul.appendChild(li)
@@ -264,27 +264,27 @@ Estes passos serão repetidos nas proximas funções portando serão comentados 
             console.log(res)
             const ul = document.getElementById('individual')
             const li = document.createElement('li')
-            const name = document.createElement('name')
+            const name = document.createElement('li')
             name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
-            const diameter = document.createElement('diameter')
+            const diameter = document.createElement('li')
             diameter.innerHTML = `<p><strong>Diâmetro:</strong> ${res.diameter} </p>`
-            const climate = document.createElement('climate')
+            const climate = document.createElement('li')
             climate.innerHTML = `<p><strong>Clima:</strong> ${res.climate} </p>`
-            const films = document.createElement('films')
+            const films = document.createElement('li')
             films.innerHTML = `<p><strong>Filmes:</strong> ${res.films} </p>`
-            const gravity = document.createElement('gravity')
+            const gravity = document.createElement('li')
             gravity.innerHTML = `<p><strong>Gravidade:</strong> ${res.gravity} </p>`
-            const orbit = document.createElement('orbital_period')
+            const orbit = document.createElement('li')
             orbit.innerHTML = `<p><strong>Período orbital:</strong> ${res.orbital_period} </p>`
-            const pop = document.createElement('population')
+            const pop = document.createElement('li')
             pop.innerHTML = `<p><strong>População:</strong> ${res.population} </p>`
-            const resi = document.createElement('residents')
+            const resi = document.createElement('li')
             resi.innerHTML = `<p><strong>Residentes:</strong> ${res.residents} </p>`
-            const rot = document.createElement('rotation_period')
+            const rot = document.createElement('li')
             rot.innerHTML = `<p><strong>Período de rotação:</strong> ${res.rotation_period} </p>`
-            const sw = document.createElement('surface_water')
+            const sw = document.createElement('li')
             sw.innerHTML = `<p><strong>Água na superfície:</strong> ${res.surface_water} </p>`
-            const terrain = document.createElement('terrain')
+            const terrain = document.createElement('li')
             terrain.innerHTML = `<p><strong>Terreno:</strong> ${res.terrain} </p>`
             ul.appendChild(li)
             li.appendChild(name)
@@ -311,8 +311,108 @@ Estes passos serão repetidos nas proximas funções portando serão comentados 
         })
         }
 
-function getFilm() {}
-function getSpecies() {}
+function getFilm() {
+
+    const id = window.location.href.split("id=")[1]
+            
+    makeRequest(`films/${id}/`)
+    .then(res => res.json())
+    .then(res => {
+    
+      const ul = document.getElementById('individual')
+      const li = document.createElement('li')
+      const title = document.createElement('li')
+      title.innerHTML = `<p><strong>Título:</strong> ${res.title} </p>`
+      const characters = document.createElement('li')
+      characters.innerHTML = `<p><strong>**Personagens:</strong> 18 </p>`
+      const director = document.createElement('director')
+      director.innerHTML = `<p><strong>Diretor:</strong> ${res.director} </p>`
+      const opening_crawl = document.createElement('opening_crawl')
+      opening_crawl.innerHTML = `<p><strong>**Texto de abertura:</strong>"It is a period of civil war..." </p>`
+      const episode_id = document.createElement('pisode_id')
+      episode_id.innerHTML = `<p><strong>Id do episódio:</strong> ${res.episode_id} </p>`
+      const planets = document.createElement('planets')
+      planets.innerHTML = `<p><strong>**Planetas:</strong> 3 </p>`
+      const producer = document.createElement('producer')
+      producer.innerHTML = `<p><strong>Protudor:</strong> ${res.producer} </p>`
+      const release_date = document.createElement('release_date')
+      release_date.innerHTML = `<p><strong>Data de lançamento:</strong> ${res.release_date} </p>`
+      const species = document.createElement('species')
+      species.innerHTML = `<p><strong>**Espécies:</strong> 5</p>`     
+      const starships = document.createElement('starships')
+      starships.innerHTML = `<p><strong>**Naves Espaciais: 8 </p>`
+      const vehicles = document.createElement('vehicles')
+      vehicles.innerHTML = `<p><strong>**Veículos:</strong> 4</p>`
+
+      ul.appendChild(li)
+      li.appendChild(title)
+      ul.appendChild(li)
+      li.appendChild(characters)
+      ul.appendChild(li)
+      li.appendChild(director)
+      ul.appendChild(li)
+      li.appendChild(producer)
+      ul.appendChild(li)
+      li.appendChild(release_date)
+      ul.appendChild(li)
+      li.appendChild(opening_crawl)
+      ul.appendChild(li)
+      li.appendChild(episode_id)
+      ul.appendChild(li)
+      li.appendChild(planets)
+      ul.appendChild(li)
+      li.appendChild(species)
+      ul.appendChild(li)
+      li.appendChild(starships)
+      ul.appendChild(li)
+      li.appendChild(vehicles)      
+ })
+}
+
+
+function getSpecie() {
+   makeRequest(`species`)
+   .then(res => res.json())
+   .then(res => {
+         
+         for (let x = 0; x < res.results.length; x++){
+            const ul = document.getElementById('individual')
+            const li = document.createElement("li")
+            const a = document.createElement("a")
+            const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
+            a.setAttribute("href", formattedHref);
+            li.appendChild(a)
+            ul.appendChild(li)
+         }
+})
+       
+   }
+   
+  /* 
+for (let x = 0; x < res.results.length; x++) {
+     
+        const li = document.createElement("li");
+
+      
+        const a = document.createElement("a");
+
+        const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
+
+      
+        a.setAttribute("href", formattedHref);
+        li.appendChild(a);
+
+ 
+        ul.appendChild(li);
+}
+  */
+       
+     
+
+
+
+
+
 function getVehicle() {}
 function getStarship() {}    
 
@@ -321,67 +421,9 @@ function getStarship() {}
 
 
 /*  
-          
-name: "Tatooine"
-diameter: "10465"
-climate: "arid"
-films: (5) 
-gravity: "1 standard"
-orbital_period: "304"
-population: "200000"
-residents: (10) 
-rotation_period: "23"
-surface_water: "1"
-terrain: "desert"
-url: "https://swapi.dev/api/planets/1/" 
+    
 
 
-
-            name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
-            const gender = document.createElement('gender')
-            gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender}</p>`
-            const height = document.createElement('height')
-            height.innerHTML = `<p><strong>Altura:</strong> ${res.height}cm</p>`
-            const massa = document.createElement('massa')
-            massa.innerHTML = `<p><strong>Massa:</strong> ${res.mass}kg</p>`
-            const hair = document.createElement('hair')
-            hair.innerHTML = `<p><strong>Cabelo:</strong> ${res.hair_color}</p>`
-            const skin = document.createElement('skin')
-            skin.innerHTML = `<p><strong>Cor da pele:</strong> ${res.skin_color}</p>`
-            const eye = document.createElement('eye')
-            eye.innerHTML = `<p><strong>Cor dos olhos:</strong> ${res.eye_color}</p>`
-            const ano = document.createElement('ano')
-            ano.innerHTML = `<p><strong>Ano de nascimento:</strong> ${res.birth_year}</p>`
-
-            ul.appendChild(li)
-            li.appendChild(name)
-            ul.appendChild(li)
-            li.appendChild(gender)
-            ul.appendChild(li)
-            li.appendChild(height)
-            ul.appendChild(li)
-            li.appendChild(massa)
-            ul.appendChild(li)
-            li.appendChild(hair)
-            ul.appendChild(li)
-            li.appendChild(skin)
-            ul.appendChild(li)
-            li.appendChild(eye)
-            ul.appendChild(li)
-            li.appendChild(ano) 
-            
-                        
-           let planet = res.homeworld.split("/")[5]
-            makeRequest(`planets/${planet}/`)
-            .then(plt => plt.json())
-             .then(plt => {
-                
-                const ul = document.getElementById('individual')
-                const li = document.createElement('li')
-                ul.appendChild(li)
-                li.innerHTML = `<p><strong>Planeta de origem:</strong> <a href="">${plt.name}</a></p>`
-                console.log(res)
-            }) 
 */
 
 
