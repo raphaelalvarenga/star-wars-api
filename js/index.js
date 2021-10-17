@@ -234,10 +234,7 @@ function getPerson() {
                 const ul = document.getElementById('individual')
                 const li = document.createElement('li')
                 ul.appendChild(li)
-                li.innerHTML = `<p><strong>Planeta de origem:</strong> <a href="">${plt.name}</a></p>`
-                console.log(res)
-
- 
+                li.innerHTML = `<p><strong>Planeta de origem:</strong><a href="">${plt.name}</a></p>`
             }) 
         })
         }
@@ -266,15 +263,75 @@ function getPerson() {
 function getPlanet() {
    
     const id = window.location.href.split("id=")[1]
-        
-    makeRequest(`planet/${id}/`)
+     
+    makeRequest(`planets/${id}/`)
+     
         .then(res => res.json())
         .then(res => {
             console.log(res)
-           /*  
             const ul = document.getElementById('individual')
             const li = document.createElement('li')
             const name = document.createElement('name')
+            name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
+            const diameter = document.createElement('diameter')
+            diameter.innerHTML = `<p><strong>Diâmetro:</strong> ${res.diameter} </p>`
+            const climate = document.createElement('climate')
+            climate.innerHTML = `<p><strong>Clima:</strong> ${res.climate} </p>`
+            const films = document.createElement('films')
+            films.innerHTML = `<p><strong>Filmes:</strong> ${res.films} </p>`
+            const gravity = document.createElement('gravity')
+            gravity.innerHTML = `<p><strong>Gravidade:</strong> ${res.gravity} </p>`
+            const orbit = document.createElement('orbital_period')
+            orbit.innerHTML = `<p><strong>Período orbital:</strong> ${res.orbital_period} </p>`
+            const pop = document.createElement('population')
+            pop.innerHTML = `<p><strong>População:</strong> ${res.population} </p>`
+            const resi = document.createElement('residents')
+            resi.innerHTML = `<p><strong>Residentes:</strong> ${res.residents} </p>`
+            const rot = document.createElement('rotation_period')
+            rot.innerHTML = `<p><strong>Período de rotação:</strong> ${res.rotation_period} </p>`
+            const sw = document.createElement('surface_water')
+            sw.innerHTML = `<p><strong>Água na superfície:</strong> ${res.surface_water} </p>`
+            const terrain = document.createElement('terrain')
+            terrain.innerHTML = `<p><strong>Terreno:</strong> ${res.terrain} </p>`
+            ul.appendChild(li)
+            li.appendChild(name)
+            ul.appendChild(li)
+            li.appendChild(diameter)
+            ul.appendChild(li)
+            li.appendChild(climate)
+            ul.appendChild(li)
+            li.appendChild(films)
+            ul.appendChild(li)
+            li.appendChild(gravity)
+            ul.appendChild(li)
+            li.appendChild(orbit)
+            ul.appendChild(li)
+            li.appendChild(pop)
+            ul.appendChild(li)
+            li.appendChild(resi)
+            ul.appendChild(li)
+            li.appendChild(rot)
+            ul.appendChild(li)
+            li.appendChild(sw)
+            ul.appendChild(li)
+            li.appendChild(terrain)
+           /*  
+          
+name: "Tatooine"
+diameter: "10465"
+climate: "arid"
+films: (5) 
+gravity: "1 standard"
+orbital_period: "304"
+population: "200000"
+residents: (10) 
+rotation_period: "23"
+surface_water: "1"
+terrain: "desert"
+url: "https://swapi.dev/api/planets/1/" 
+
+
+
             name.innerHTML = `<p><strong>Nome:</strong> ${res.name} </p>`
             const gender = document.createElement('gender')
             gender.innerHTML = `<p><strong>Sexo:</strong> ${res.gender}</p>`
