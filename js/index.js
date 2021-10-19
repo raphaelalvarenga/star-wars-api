@@ -85,17 +85,8 @@ function createContent(res, ulID, aHref) {
 
         // Acrescenta o <li> (que já possui o <a>) dentro do <ul>
         ul.appendChild(li);
-      
-
     }
 }
-
-
-
-
-
-
-
 
 /*   1    Busca pessoas
         essa funçao começa dando um valor ("people")
@@ -652,6 +643,45 @@ function counter() {
 
     })
 }
+
+function skip() {
+    
+    makeRequest("people")
+    .then(res => res.json())
+    .then(res => {
+        
+        const skip = document.getElementById('skip')
+        const li = document.createElement('li')
+ 
+        /* */
+        if(res.previous == null ){
+            
+            li.innerHTML = ` `
+            skip.appendChild(li)
+             
+        }else{
+             
+            li.innerHTML = `<p>prev</p>`
+            skip.appendChild(li)
+            
+        }
+
+        if(res.next == null){
+            
+            li.innerHTML = ` `
+            skip.appendChild(li)
+            
+        }else{
+            
+            li.innerHTML = `<p>next</p>`
+            skip.appendChild(li)
+           
+        }
+       
+    })
+}
+
+
 
 /*
 
