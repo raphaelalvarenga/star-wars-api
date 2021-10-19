@@ -38,6 +38,7 @@ Ela recebe 3 valores e ....  (siga os comentário abaixo)
 */
 function createContent(res, ulID, aHref) {
 
+
     // Pega a <ul> no HTML pelo ID
     const ul = document.getElementById(ulID);
 
@@ -84,6 +85,8 @@ function createContent(res, ulID, aHref) {
 
         // Acrescenta o <li> (que já possui o <a>) dentro do <ul>
         ul.appendChild(li);
+      
+
     }
 }
 
@@ -117,6 +120,7 @@ function getPeople() {
     makeRequest("people")
         .then(res => res.json())
         .then(res => createContent(res, "list-people", "./person.html"))
+        
 }
 
 /* Busca planetas
@@ -619,6 +623,35 @@ function getStarshipel() {
     })
 }
 
+/*
+função counter() 
+essa funçao serve para aproveitar uma informação da API
+que tras a contagem total de  itens de determinada categoria.
+assim que, não foi aplicada ao HTML de itens individuais, apenas aos 
+HTML das categorias.
+counter()    reconhece elemento h1 no HTML
+em seguida captura o texto inserido no h1 e leva para minúsculas
+em seguida aplica esse resultado na makeRequest()
+esse resultado tras no array a informação  "count"
+que é inserida em um objeto 'p'  de volta no HTML
+*/
+
+function counter() {
+    const h1 = document.getElementById('h1')
+    const h1ready = h1.innerText.toLowerCase()
+    makeRequest(h1ready) 
+     
+    .then(res => res.json())
+    .then(res => {
+    
+     const count = document.querySelector('h2')
+     const p = document.createElement('p')
+     p.innerHTML = `Total: ${res.count}`
+     count.appendChild(p)
+
+
+    })
+}
 
 /*
 
