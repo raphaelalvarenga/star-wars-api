@@ -110,9 +110,28 @@ function createContent(res, ulID, aHref) {
 function getPeople() {
     makeRequest("people")
         .then(res => res.json())
-        .then(res => createContent(res, "list-people", "./person.html"))
-        
-}
+        .then(res => {
+            createContent(res, "list-people", "./person.html")
+            const skip = document.getElementById('skip')
+            const count = document.getElementById('counter')
+            const li = document.createElement('li') 
+            const li2 = document.createElement('li')
+            li.innerHTML = `<p>next >>></p>`
+            li.addEventListener("click", next => console.log('cliclou')) 
+            li2.innerHTML = `<p>Total: ${res.count}</p>`
+            skip.appendChild(li)
+            count.appendChild(li2)
+           
+            
+
+        })
+    } 
+
+
+
+
+
+
 
 /* Busca planetas
    é uma funçao onLoad dentro de Planets.html
@@ -672,8 +691,11 @@ function skip() {
             skip.appendChild(li)
             
         }else{
+             
+            const page =
+ 
             
-            li.innerHTML = `<p>next</p>`
+            li.innerHTML = `<p><a href="">next</a></p>`
             skip.appendChild(li)
            
         }
@@ -681,30 +703,78 @@ function skip() {
     })
 }
 
+function nextPage(){ 
+
+const h1 = document.getElementById('h1')
+const categ = h1.innerHTML.toLowerCase()
+let x = 2
+ 
+makeRequest(`${categ}/?page=${x}`)
+.then(res => res.json())
+.then(res => {
+    console.log(res.results)
+    
+
+
+ 
+})
+}
 
 
 /*
 
+const skip = document.getElementById('skip')
+    const next = document.createElement('li')
+    const ul = document.getElementById('list-people')
 
-name: "CR90 corvette"
-model: "CR90 corvette"
-cost_in_credits: "3500000"
-max_atmosphering_speed: "950"
-passengers: "600"
-crew: "30-165"
-hyperdrive_rating: "2.0"
-length: "150"
-pilots: []
-starship_class: "corvette"
-manufacturer: "Corellian Engineering Corporation"
-MGLT: "60"
-cargo_capacity: "3000000"
-consumables: "1 year"
-films: (3)
-        
+    for (let y = 0; y < res.results.length; y++) {
+    const li = document.createElement('li')    
+    const a = document.createElement("a");
+    const formattedHref = `${aHref}?id=${x}`
+    a.setAttribute("href", formattedHref);
 
 
 
+
+
+
+
+
+
+next: 'https://swapi.dev/api/people/?page=2'
+
+function nextPage(){ }
+
+const skip = document.getElementById('skip')
+const category = skip.innerText.toLowercase
+let x = 1
+
+
+makeRequest("${category}/?page=${x}")
+
+const nextPage = res.results.next 
+
+const formattedHref = `${aHref}?page=${res.next.split("/")[1]}`;
+cons
+people/?page=2
+
+
+        // Coloca HREF no <a> com o valor formatado
+        a.setAttribute("href", formattedHref);
+        a.setAttribute("onclick", nextPage())
+function getPeople() {
+    makeRequest("people")
+        .then(res => res.json())
+        .then(res => createContent(res, "list-people", "./'person'.html"))
+        const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
+}
+
+function getPeople2() {
+    makeRequest(`${categ}/${x}`)
+        .then(res => res.json())
+        .then(res => createContent(res, "list-people", "./person.html"))
+
+${categ}/?page=${x}
 */
  
 
