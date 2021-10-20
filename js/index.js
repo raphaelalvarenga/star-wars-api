@@ -107,27 +107,64 @@ function createContent(res, ulID, aHref) {
         vamos ali no alto olhar entao o função 3 - createContent
         receber os valores e criar conteúdo com link!
 */
+ 
 function getPeople() {
     makeRequest("people")
         .then(res => res.json())
         .then(res => {
+                   
             createContent(res, "list-people", "./person.html")
+            const h1 = document.getElementById('h1')
             const skip = document.getElementById('skip')
             const count = document.getElementById('counter')
             const li = document.createElement('li') 
             const li2 = document.createElement('li')
-            li.innerHTML = `<p>next >>></p>`
-            li.addEventListener("click", next => console.log('cliclou')) 
+            li.addEventListener("click", next => console.log('clicou'))
             li2.innerHTML = `<p>Total: ${res.count}</p>`
             skip.appendChild(li)
-            count.appendChild(li2)
-           
-            
-
+            count.appendChild(li2) 
+            if(res.previous == null ){
+                li.innerHTML = ` `
+                skip.appendChild(li)
+            }else{
+                li.innerHTML = `<p>prev</p>`
+                skip.appendChild(li)
+            }
+            if(res.next == null){
+                li.innerHTML = ` `
+                skip.appendChild(li)
+            }else{
+                li.innerHTML = `<p>next</p>`
+                skip.appendChild(li)
+            }
         })
     } 
 
+/*
+if(res.previous == null ){
+            
+            li.innerHTML = ` `
+            skip.appendChild(li)
+             
+        }else{
+             
+            li.innerHTML = `<p>prev</p>`
+            skip.appendChild(li)
+            
+        }
 
+        if(res.next == null){
+            
+            li.innerHTML = ` `
+            skip.appendChild(li)
+            
+        }else{ 
+            
+            li.innerHTML = `<p><a href="">next</a></p>`
+            skip.appendChild(li)
+           
+        }
+*/
 
 
 
