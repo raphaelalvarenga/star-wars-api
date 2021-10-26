@@ -130,14 +130,12 @@ function getPeople() {
             const skip = document.getElementById('skip')
             const count = document.getElementById('counter')
             const li = document.createElement('li') 
-            const li2 = document.createElement('li')
+            const li2 = document.createElement('span')
             const prevv = document.createElement('li')
             const prev = null;
             const who = h1.innerHTML.toLocaleLowerCase();
             let next = res.next.split('=')[1]
-            if(prev != null){
-                prev = res.previous.split('=')[1]
-            }
+ 
             prevv.innerHTML = `<p onclick="prevPage(${prev})">previous</p>`
             li2.innerHTML = `<p>Total: ${res.count}</p>`
             skip.appendChild(prevv)
@@ -185,13 +183,14 @@ function prevPage(id){
  
  makeRequest(`${who}/?page=${id}`)
  .then(res => res.json())
- .then(res => {    
-    const next = res.next.split('=')[1]
-    const prev = res.next.split('=')[1]
+ .then(res => {   
  
-    createContent(res, "list-people", "./person.html")
-    skip.innerHTML='';
+        const next = res.next.split('=')[1]
+        const prev = res.previous.split('=')[1]  
     
+ 
+    createContent(res, `list-${who}`, "./person.html")
+    skip.innerHTML='';
     const prevv = document.createElement('li')
     prevv.innerHTML = `<p onclick="prevPage(${prev})">previous</p>`
     li.innerHTML = `<p onclick="nextPage(${next})">next</p>`
