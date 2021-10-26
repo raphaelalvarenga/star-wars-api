@@ -131,13 +131,16 @@ function getPeople() {
             const count = document.getElementById('counter')
             const li = document.createElement('li') 
             const li2 = document.createElement('li')
+            const prevv = document.createElement('li')
+            const prev = null;
             const who = h1.innerHTML.toLocaleLowerCase();
             let next = res.next.split('=')[1]
-            const prevv = document.createElement('li')
-            prevv.innerHTML = `<p>previous</p>`
+            if(prev != null){
+                prev = res.previous.split('=')[1]
+            }
+            prevv.innerHTML = `<p onclick="prevPage(${prev})">previous</p>`
             li2.innerHTML = `<p>Total: ${res.count}</p>`
             skip.appendChild(prevv)
-            
             skip.appendChild(li)
             count.appendChild(li2)
             li.innerHTML = `<p id="next" onclick="nextPage(${next})">next</p>`
@@ -162,20 +165,41 @@ function nextPage(id) {
  .then(res => res.json())
  .then(res => {    
     const next = res.next.split('=')[1]
+    const prev = res.previous.split('=')[1]
+ 
+    createContent(res, "list-people", "./person.html")
+    skip.innerHTML='';
+    
+    const prevv = document.createElement('li')
+    prevv.innerHTML = `<p onclick="prevPage(${prev})">previous</p>`
+    li.innerHTML = `<p onclick="nextPage(${next})">next</p>`
+    skip.appendChild(prevv) 
+    skip.appendChild(li)
+
+})   
+}
+
+function prevPage(id){
+ const ulId = document.getElementById(`list-${who}`)
+ ulId.innerHTML = '';
+ 
+ makeRequest(`${who}/?page=${id}`)
+ .then(res => res.json())
+ .then(res => {    
+    const next = res.next.split('=')[1]
     const prev = res.next.split('=')[1]
  
     createContent(res, "list-people", "./person.html")
+    skip.innerHTML='';
+    
     const prevv = document.createElement('li')
-    prevv.innerHTML = `<p>previous</p>` 
-     
-        skip.innerHTML='';
-        li.innerHTML = `<p onclick="nextPage(${next})">next</p>`
-        
-        skip.appendChild(li)
-        skip.appendChild(prevv)
- })   
-}
+    prevv.innerHTML = `<p onclick="prevPage(${prev})">previous</p>`
+    li.innerHTML = `<p onclick="nextPage(${next})">next</p>`
+    skip.appendChild(prevv) 
+    skip.appendChild(li)
 
+})
+}
 
 
 
