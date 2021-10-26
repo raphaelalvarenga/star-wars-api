@@ -1,3 +1,15 @@
+const lalista = document.querySelector('.lalista')
+const h1 = document.getElementById('h1')
+const skip = document.getElementById('skip')
+const count = document.getElementById('counter')
+const li = document.createElement('li') 
+const li2 = document.createElement('li')
+const li3 = document.createElement('li') 
+const who = h1.innerHTML.toLocaleLowerCase()
+//acima declaramos o vinculo de alguns elementos html.
+
+
+
 /* Vamos começar com o site index.html que possui uma funçao
 on-load no <body>  - essa funçao carrega da API uma 
 lista de ja utilizavel no projeto, na sessao PEOPLE.
@@ -25,6 +37,11 @@ mais abaixo.   (vou numerar a primeira com 1)
 Faz a requisição em todos 'makeRequest', retornando o 
 o conteudo declarado entre () - makeRequest("conteudo") 
 e aplicando em (urlParam)  pra pedir retorno na fetch .. dentro do ${urlParam} */
+
+
+
+
+
 function makeRequest(urlParam) {
     return fetch(`https://swapi.dev/api/${urlParam}`)
 }
@@ -34,23 +51,11 @@ function makeRequest(urlParam) {
 
 Esta função cria o HTML para o escopo que está chamando ela (people, planets, etc)
 Ela recebe 3 valores e ....  (siga os comentário abaixo)
-
-*/
-function createContent(res, ulID, aHref) {
-
-
-    // Pega a <ul> no HTML pelo ID
-    const ul = document.getElementById(ulID);
-
-    /* Faz um loop pelos results ..Método importande onde X recebe valores de contagem pra nos exibir 'results' onde [x] irá contar os results até < res.results com incremento de x++   ... nos passos abaixo vemos que o que está acontecendo é a montagem de um link <a>    até aqui tá otimo!*/
-    for (let x = 0; x < res.results.length; x++) {
-        // Cria uma <li>
-        const li = document.createElement("li");
-
-        // Cria um link <a>
-        const a = document.createElement("a");
-
-        /* Formata o atributo HREF do <a> para ficar com o seguinte padrão de exemplo: "./person?id=1"
+-Pega a <ul> no HTML pelo ID
+-Faz um loop pelos results ..Método importande onde X recebe valores de contagem pra nos exibir 'results' onde [x] irá contar os results até < res.results com incremento de x++   ... nos passos abaixo vemos que o que está acontecendo é a montagem de um link <a>    até aqui tá otimo!
+Cria uma <li>
+Cria um link <a>
+-Formata o atributo HREF do <a> para ficar com o seguinte padrão de exemplo: "./person?id=1"
         pois é necessário que direcione o link para a pagina do indivíduo e nela informar os atributos dele.
         agora veja esse trecho que vem ativo, logo abaixo:
 
@@ -67,26 +72,33 @@ function createContent(res, ulID, aHref) {
         se aplicarmos o url.split com ("condiçao") porem ("/")
         isso REMOVERÁ TODOS OS "/" da url tornando o "/" como
         intervalo entre elementos de um objeto .. entao nosso exemplo ficaria como
-           [https:, www.youtube.com, watch]  <- gerando um array/objeto com 3 elementos.
-           esse é o split.
-           e na sequencia dizemos desse split, qual é o indice que queremos o valor...  no nosso projeto abaixo queremos SEMPRE o valor que estiver na posição [5], pois este será o numero pra concluir a criação do link
-
-        */
-        const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
-
-        // Coloca HREF no <a> com o valor formatado
-        a.setAttribute("href", formattedHref);
-
+        [https:, www.youtube.com, watch]  <- gerando um array/objeto com 3 elementos.
+        esse é o split.
+        e na sequencia dizemos desse split, qual é o indice que queremos o valor...  no nosso projeto abaixo queremos SEMPRE o valor que estiver na posição [5], pois este será o numero pra concluir a criação do link
+        -Coloca HREF no <a> com o valor formatado
         // A API de filmes não retorna "name" e sim, "title". Tivemos que fazer uma condicional aqui
-        ulID === "list-films" ? a.innerHTML = res.results[x].title : a.innerHTML = res.results[x].name;
-
         // Acrescenta o <a> dentro do <li>
-        li.appendChild(a);
-
         // Acrescenta o <li> (que já possui o <a>) dentro do <ul>
+*/
+function createContent(res, ulID, aHref) {
+    
+    const ul = document.getElementById(ulID);
+    for (let x = 0; x < res.results.length; x++) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        const formattedHref = `${aHref}?id=${res.results[x].url.split("/")[5]}`;
+       
+        a.setAttribute("href", formattedHref);
+        
+        ulID === "list-films" ? a.innerHTML = res.results[x].title : a.innerHTML = res.results[x].name;
+        
+        li.appendChild(a);
         ul.appendChild(li);
     }
+
 }
+
+
 
 /*   1    Busca pessoas
         essa funçao começa dando um valor ("people")
@@ -119,26 +131,53 @@ function getPeople() {
             const count = document.getElementById('counter')
             const li = document.createElement('li') 
             const li2 = document.createElement('li')
-            li.addEventListener("click", next => console.log('clicou'))
+            const who = h1.innerHTML.toLocaleLowerCase();
+            let next = res.next.split('=')[1]
+            const prevv = document.createElement('li')
+            prevv.innerHTML = `<p>previous</p>`
             li2.innerHTML = `<p>Total: ${res.count}</p>`
+            skip.appendChild(prevv)
+            
             skip.appendChild(li)
-            count.appendChild(li2) 
-            if(res.previous == null ){
-                li.innerHTML = ` `
-                skip.appendChild(li)
-            }else{
-                li.innerHTML = `<p>prev</p>`
-                skip.appendChild(li)
-            }
-            if(res.next == null){
-                li.innerHTML = ` `
-                skip.appendChild(li)
-            }else{
-                li.innerHTML = `<p>next</p>`
-                skip.appendChild(li)
-            }
+            count.appendChild(li2)
+            li.innerHTML = `<p id="next" onclick="nextPage(${next})">next</p>`
+            skip.appendChild(li)
+            
+             
         })
     } 
+
+
+
+
+
+
+
+
+function nextPage(id) {
+ const ulId = document.getElementById(`list-${who}`)
+ ulId.innerHTML = '';
+ 
+ makeRequest(`${who}/?page=${id}`)
+ .then(res => res.json())
+ .then(res => {    
+    const next = res.next.split('=')[1]
+    const prev = res.next.split('=')[1]
+ 
+    createContent(res, "list-people", "./person.html")
+    const prevv = document.createElement('li')
+    prevv.innerHTML = `<p>previous</p>` 
+     
+        skip.innerHTML='';
+        li.innerHTML = `<p onclick="nextPage(${next})">next</p>`
+        
+        skip.appendChild(li)
+        skip.appendChild(prevv)
+ })   
+}
+
+
+
 
 /*
 if(res.previous == null ){
@@ -700,63 +739,11 @@ function counter() {
     })
 }
 
-function skip() {
-    
-    makeRequest("people")
-    .then(res => res.json())
-    .then(res => {
-        
-        const skip = document.getElementById('skip')
-        const li = document.createElement('li')
- 
-        /* */
-        if(res.previous == null ){
-            
-            li.innerHTML = ` `
-            skip.appendChild(li)
-             
-        }else{
-             
-            li.innerHTML = `<p>prev</p>`
-            skip.appendChild(li)
-            
-        }
-
-        if(res.next == null){
-            
-            li.innerHTML = ` `
-            skip.appendChild(li)
-            
-        }else{
-             
-            const page =
- 
-            
-            li.innerHTML = `<p><a href="">next</a></p>`
-            skip.appendChild(li)
-           
-        }
-       
-    })
-}
-
-function nextPage(){ 
-
-const h1 = document.getElementById('h1')
-const categ = h1.innerHTML.toLowerCase()
-let x = 2
- 
-makeRequest(`${categ}/?page=${x}`)
-.then(res => res.json())
-.then(res => {
-    console.log(res.results)
-    
 
 
  
-})
-}
-
+ 
+ 
 
 /*
 
